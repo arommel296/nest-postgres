@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { doubleCsrf } from 'csrf-csrf';
 import { strict } from 'assert';
-import * as session from 'express-session';
 import * as passport from 'passport';
 
 var cookieParser = require('cookie-parser')
