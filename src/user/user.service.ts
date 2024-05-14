@@ -36,8 +36,8 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(email: string): Promise<User> {
+    return this.userRepository.findOneBy({email});
   }
 
   /**

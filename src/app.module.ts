@@ -1,23 +1,34 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
+import * as cors from 'cors';
+import helmet from 'helmet';
+require('dotenv').config();
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    password: 'AXCLDK',
+    password: process.env.DB_PASSWORD,
     username: 'postgres',
     entities: [User],
     database: 'pruebaOrm',
     synchronize: true,
     logging: true,
-  }), UserModule],
+  }), UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(cors(), helmet())
+      .forRoutes('auth/login');
+  }
+}
