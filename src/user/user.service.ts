@@ -19,19 +19,10 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  /**
-   * this function is used to get all the user's list
-   * @returns promise of array of users
-   */
   findAllUser(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  /**
-   * this function used to get data of use whose id is passed in parameter
-   * @param id is type of number, which represent the id of user.
-   * @returns promise of user
-   */
   viewUser(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
@@ -40,13 +31,6 @@ export class UserService {
     return this.userRepository.findOneBy({email});
   }
 
-  /**
-   * this function is used to updated specific user whose id is passed in
-   * parameter along with passed updated data
-   * @param id is type of number, which represent the id of user.
-   * @param updateUserDto this is partial type of createUserDto.
-   * @returns promise of udpate user
-   */
   updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user: User = new User();
     user.id = id;
@@ -56,11 +40,6 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  /**
-   * this function is used to remove or delete user from database.
-   * @param id is the type of number, which represent id of user
-   * @returns nuber of rows deleted or affected
-   */
   removeUser(id: number): Promise<{ affected?: number }> {
     return this.userRepository.delete(id);
   }

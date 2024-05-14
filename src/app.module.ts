@@ -7,6 +7,8 @@ import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import * as cors from 'cors';
 import helmet from 'helmet';
+import { ExpressSessionMiddleware } from '@nest-middlewares/express-session';
+import session from 'express-session';
 require('dotenv').config();
 
 @Module({
@@ -27,6 +29,7 @@ require('dotenv').config();
 
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    ExpressSessionMiddleware.configure({secret: process.env.SESSION_SECRET})
     consumer
       .apply(cors(), helmet())
       .forRoutes('auth/login');

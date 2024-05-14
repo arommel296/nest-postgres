@@ -4,6 +4,10 @@ import helmet from 'helmet';
 import { doubleCsrf } from 'csrf-csrf';
 import { strict } from 'assert';
 import * as passport from 'passport';
+const session = require('express-session');
+require('dotenv').config();
+
+console.log(process.env.SESSION_SECRET);
 
 var cookieParser = require('cookie-parser')
 
@@ -13,8 +17,9 @@ async function bootstrap() {
     .use(helmet())
     // .use(doubleCsrf)
     // .use(cookieParser())
-    // .use(passport.initialize())
-    // .use(passport.session())
+    .use(session({secret: process.env.SESSION_SECRET}))
+    .use(passport.initialize())
+    .use(passport.session())
     .enableCors();
   await app.listen(3000);
 }
