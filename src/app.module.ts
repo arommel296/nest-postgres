@@ -22,6 +22,7 @@ require('dotenv').config();
     database: 'pruebaOrm',
     synchronize: true,
     logging: true,
+    autoLoadEntities: true,
   }), UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],

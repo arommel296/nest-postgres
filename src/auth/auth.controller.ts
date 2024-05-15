@@ -15,6 +15,7 @@ export class AuthController {
         let email = body.email;
         let password = body.password;
         let user = this.authService.validateUser(email, password);
+        console.log();
         if (!user) {
             // return this.authService.login(user);
             throw new NotFoundException('User not found');

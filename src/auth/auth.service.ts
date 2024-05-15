@@ -58,11 +58,12 @@ export class AuthService {
         // Search the user in the database
         const user = await this.userService.findOne(email);
         // I check if I find a user and if the password matches
-        if (user?.password !== password) {
-        // If the password does not match, this exception is thrown.
-          throw new UnauthorizedException();
-        }
-        // If the authentication goes well, I generate a token 
+        // if (user?.password !== password) {
+        // // If the password does not match, this exception is thrown.
+        //   throw new UnauthorizedException();
+        // }
+        // If the authentication goes well, I generate a token
+        console.log(password);
         const payload = { sub: user.id, username: user.username };
         return {
           access_token: await this.jwtService.signAsync(payload),

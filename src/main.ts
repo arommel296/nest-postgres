@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { doubleCsrf } from 'csrf-csrf';
 import { strict } from 'assert';
 import * as passport from 'passport';
+import { ValidationPipe } from '@nestjs/common';
 const session = require('express-session');
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ async function bootstrap() {
     .use(session({secret: process.env.SESSION_SECRET}))
     .use(passport.initialize())
     .use(passport.session())
+    .useGlobalPipes(new ValidationPipe())
     .enableCors();
   await app.listen(3000);
 }
